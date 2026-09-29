@@ -1,0 +1,10 @@
+{
+  "id": "ffuf",
+  "version": "1.0.0-beta2",
+  "displayName": "ffuf",
+  "vendor": "Mart\u00edn Romera",
+  "license": "Proprietary",
+  "description": "Agent-executed web fuzzer: ships a customBuilder Python module for its wildcard-position target splitting (the one case that isn't declarative), plus the ImportParser for its JSON output.",
+  "sdkVersion": "1",
+  "icon": "/img/sources/ffuf.svg"
+}

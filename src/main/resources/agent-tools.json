@@ -1,0 +1,123 @@
+[
+  {
+    "toolId": "ffuf",
+    "displayName": "ffuf",
+    "binary": "ffuf",
+    "resultFormat": "default",
+    "validScopeKinds": ["url", "url_wildcard", "domain", "domain_wildcard"],
+    "validAssetTypes": ["web_application", "web_endpoint", "domain"],
+    "maxTargets": 1,
+    "targetEmission": "single-flag",
+    "targetFlag": "-u",
+    "minVersion": null,
+    "requiresRoot": false,
+    "customBuilder": {
+      "module": "builder.py",
+      "sha256": "computed-at-load-time-by-PluginLoader"
+    },
+    "fields": [
+      {
+        "key": "wordlist",
+        "type": "server_fetch",
+        "required": true,
+        "urlTemplate": "/api/v1/kb/wordlists/{value}/content"
+      },
+      {
+        "key": "fuzzWordlists",
+        "type": "server_fetch",
+        "repeat": true,
+        "urlTemplate": "/api/v1/kb/wordlists/{value}/content"
+      },
+      {
+        "key": "urlTemplate",
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_\\-./~?=&%#+:@{}\\[\\]]{1,512}$"
+      },
+      {
+        "key": "matchStatusCodes",
+        "type": "string",
+        "flag": "-mc",
+        "pattern": "^[\\dx,]{1,128}$"
+      },
+      {
+        "key": "filterStatusCodes",
+        "type": "string",
+        "flag": "-fc",
+        "pattern": "^[\\dx,]{1,128}$"
+      },
+      {
+        "key": "filterSize",
+        "type": "number",
+        "flag": "-fs",
+        "min": 0,
+        "max": 100000000
+      },
+      {
+        "key": "filterWords",
+        "type": "number",
+        "flag": "-fw",
+        "min": 0,
+        "max": 100000
+      },
+      {
+        "key": "rate",
+        "type": "number",
+        "flag": "-rate",
+        "min": 1,
+        "max": 10000,
+        "ruleBinding": "rate_limit"
+      },
+      {
+        "key": "threads",
+        "type": "number",
+        "flag": "-t",
+        "min": 1,
+        "max": 500,
+        "ruleBinding": "concurrency"
+      },
+      {
+        "key": "timeout",
+        "type": "number",
+        "flag": "-timeout",
+        "min": 1,
+        "max": 600
+      },
+      {
+        "key": "extensions",
+        "type": "string",
+        "flag": "-e",
+        "pattern": "^[A-Za-z0-9,./]{1,128}$"
+      },
+      {
+        "key": "followRedirects",
+        "type": "boolean_flag",
+        "flag": "-r"
+      },
+      {
+        "key": "autocalibrate",
+        "type": "boolean_flag",
+        "flag": "-ac"
+      },
+      {
+        "key": "recursion",
+        "type": "boolean_flag",
+        "flag": "-recursion"
+      },
+      {
+        "key": "recursionDepth",
+        "type": "number",
+        "flag": "-recursion-depth",
+        "min": 1,
+        "max": 10
+      },
+      {
+        "key": "headers",
+        "type": "string",
+        "flag": "-H",
+        "repeat": true,
+        "pattern": "^[A-Za-z0-9_\\-]{1,64}: [\\x20-\\x7e]{1,2048}$",
+        "ruleBinding": "headers"
+      }
+    ]
+  }
+]
